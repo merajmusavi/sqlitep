@@ -13,6 +13,7 @@
       android:layout_width="match_parent"
       android:layout_height="56dp">
       <TextView
+          android:layout_gravity="start"
           android:padding="12dp"
           android:textSize="18sp"
           android:textStyle="normal"
@@ -22,36 +23,36 @@
           android:layout_height="wrap_content"/>
   </FrameLayout>
     <FrameLayout
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="56dp">
-        <EditText
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:padding="15dp"
-            android:background="@drawable/shape_et_bg"
-            android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_gravity="start|center_vertical"
-            android:src="@drawable/ic_baseline_search_24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <com.google.android.material.textfield.TextInputLayout
+           
+            app:boxStrokeColor="@color/white"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_baseline_search_24"
+            app:boxBackgroundColor="@color/white"
+            android:hint="search task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_task_Et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
     </FrameLayout>
 </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_task"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_item_fab"
         android:layout_margin="10dp"
         android:src="@drawable/ic_baseline_add_24"
         android:layout_gravity="bottom|end"
