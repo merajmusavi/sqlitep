@@ -9,41 +9,35 @@
     android:background="@drawable/appbar_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-  <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="56dp">
-      <TextView
-          android:layout_gravity="start"
-          android:padding="12dp"
-          android:textSize="18sp"
-          android:textStyle="normal"
-          android:textColor="@color/white"
-          android:text="note app"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
-  </FrameLayout>
-    <FrameLayout
-        android:layout_margin="15dp"
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        app:contentScrim="@color/white"
+        app:layout_scrollFlags="scroll|enterAlways"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-           
-            app:boxStrokeColor="@color/white"
-            android:textColorHint="@color/black"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_baseline_search_24"
-            app:boxBackgroundColor="@color/white"
-            android:hint="search task"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_task_Et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="56dp">
 
-    </FrameLayout>
+            <com.google.android.material.textfield.TextInputLayout
+
+                app:boxStrokeColor="@color/white"
+                android:textColorHint="@color/black"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_baseline_search_24"
+                app:boxBackgroundColor="@color/white"
+                android:hint="search task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_task_Et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </FrameLayout>
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
 </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -54,7 +48,9 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_item_fab"
         android:layout_margin="10dp"
+        app:backgroundTint="#2180F3"
         android:src="@drawable/ic_baseline_add_24"
+        app:tint="@android:color/white"
         android:layout_gravity="bottom|end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
