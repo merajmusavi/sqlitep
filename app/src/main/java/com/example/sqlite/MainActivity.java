@@ -10,25 +10,21 @@ import android.view.View;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Dialog.addNewTaskCallback {
+public class MainActivity extends AppCompatActivity implements Dialog.addNewTaskCallback,TaskAdapter.onItemSelect {
     SqliteHelper sqliteHelper;
-    TaskAdapter taskAdapter = new TaskAdapter();
+    TaskAdapter taskAdapter = new TaskAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView task_rec = findViewById(R.id.rec_task);
+        View view = findViewById(R.id.add_item_fab);
+        task_rec.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        task_rec.setAdapter(taskAdapter);
         sqliteHelper = new SqliteHelper(this);
         List<TaskModel> tasks = sqliteHelper.get_tasks();
-
-        View view = findViewById(R.id.add_item_fab);
-
-
-        task_rec.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-
-        task_rec.setAdapter(taskAdapter);
-
+        taskAdapter.add_all(tasks);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,5 +42,14 @@ public class MainActivity extends AppCompatActivity implements Dialog.addNewTask
             taskModel.setId(task_id);
             taskAdapter.additem(taskModel);
         }
+    }
+
+    @Override
+    public void onDeleteButtonClicked(TaskModel taskModel) {
+     int result = sqliteHelper.delete_task(taskModel);
+
+     if (result>0){
+         taskAdapter.deleteItem(taskModel);
+     }
     }
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">sqlite</string>
     <string name="add">add your task</string>
+    <string name="this_is_task">this is task</string>
 </resources>
