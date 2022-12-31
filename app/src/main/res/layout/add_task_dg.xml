@@ -6,6 +6,7 @@
 
     >
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_l"
         android:layout_margin="15dp"
         android:hint="@string/add"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

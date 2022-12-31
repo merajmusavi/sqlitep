@@ -39,20 +39,21 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     public List<TaskModel> get_tasks() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ TABLE_NAME,null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         List<TaskModel> list_task = new ArrayList<>();
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
 
                 TaskModel taskModel = new TaskModel();
                 taskModel.setId(cursor.getLong(0));
                 taskModel.setTitle(cursor.getString(1));
-                taskModel.setCompleted(cursor.getInt(2)==1);
+                taskModel.setCompleted(cursor.getInt(2) == 1);
                 list_task.add(taskModel);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
 
 
         }
+        sqLiteDatabase.close();
         return list_task;
     }
 
@@ -67,12 +68,20 @@ public class SqliteHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void update_task() {
-
+    public int update_task(TaskModel taskModel) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("title", taskModel.getTitle());
+        contentValues.put("is_compeleted", taskModel.isCompleted());
+        int result = sqLiteDatabase.update(TABLE_NAME, contentValues, "id = ?", new String[]{String.valueOf(taskModel.getId())});
+        sqLiteDatabase.close();
+        return result;
     }
 
-    public void delete_task(int id) {
-
+    public int delete_task(TaskModel taskModel) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        int result = sqLiteDatabase.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(taskModel.getId())});
+        return result;
     }
 
     public void delete_all_task() {
