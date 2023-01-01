@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
-private List<TaskModel> taskModelList = new ArrayList<>();
+private List<TaskModel>  taskModelList = new ArrayList<>();
     private TaskAdapter.onItemSelect onItemSelect;
 
-    public TaskAdapter(onItemSelect onItemSelect){
+    public TaskAdapter(onItemSelect onItemSelect) {
         this.onItemSelect = onItemSelect;
     }
     @NonNull

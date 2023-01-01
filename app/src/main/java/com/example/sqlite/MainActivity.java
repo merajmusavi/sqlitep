@@ -5,12 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Dialog.addNewTaskCallback,TaskAdapter.onItemSelect {
+public class MainActivity extends AppCompatActivity implements Dialog_add_task.addNewTaskCallback,TaskAdapter.onItemSelect {
     SqliteHelper sqliteHelper;
     TaskAdapter taskAdapter = new TaskAdapter(this);
 
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements Dialog.addNewTask
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog();
+                Dialog_add_task dialog = new Dialog_add_task();
                 dialog.show(getSupportFragmentManager(), null);
             }
         });

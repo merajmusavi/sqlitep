@@ -14,23 +14,25 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class Dialog extends DialogFragment {
-    private addNewTaskCallback addNewTaskCallback;
+public class Dialog_update_task extends DialogFragment {
+    private EditTaskCallback editTaskCallback;
+    private TaskModel taskModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        addNewTaskCallback = (Dialog.addNewTaskCallback) context;
+        editTaskCallback = (EditTaskCallback) context;
+        taskModel = getArguments().getParcelable("task");
     }
 
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.add_task_dg,null,false);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.update_task_dg,null,false);
         TextInputLayout textInputLayout = v.findViewById(R.id.text_input_l);
-        TextInputEditText textInputEditText = v.findViewById(R.id.add_task_Et);
-        MaterialButton materialButton = v.findViewById(R.id.btn_add_task);
+        TextInputEditText textInputEditText = v.findViewById(R.id.update_task_Et);
+        MaterialButton materialButton = v.findViewById(R.id.btn_update_task);
 
          materialButton.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -39,7 +41,7 @@ public class Dialog extends DialogFragment {
                  TaskModel taskModel = new TaskModel();
                  taskModel.setTitle(textInputEditText.getText().toString());
                  taskModel.setCompleted(false);
-                 addNewTaskCallback.newTask(taskModel);
+                 editTaskCallback.updateTask(taskModel);
                  dismiss();
                  }else {
                      textInputLayout.setError("The title should not be empty");
@@ -50,7 +52,7 @@ public class Dialog extends DialogFragment {
         builder.setView(v);
         return builder.create();
     }
-    public interface addNewTaskCallback{
-         void newTask(TaskModel taskModel);
+    public interface EditTaskCallback{
+         void updateTask(TaskModel taskModel);
     }
 }
