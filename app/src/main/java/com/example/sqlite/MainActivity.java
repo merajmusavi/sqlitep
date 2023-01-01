@@ -5,9 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements Dialog_add_task.addNewTaskCallback, TaskAdapter.onItemSelect, Dialog_update_task.EditTaskCallback {
     SqliteHelper sqliteHelper;
@@ -21,6 +26,29 @@ public class MainActivity extends AppCompatActivity implements Dialog_add_task.a
         View view = findViewById(R.id.add_item_fab);
         task_rec.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         task_rec.setAdapter(taskAdapter);
+        TextInputEditText search = findViewById(R.id.search_et);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+             if (charSequence.length()>0){
+                 List<TaskModel> taskModelList = sqliteHelper.search(charSequence.toString());
+                 taskAdapter.setTasks(taskModelList);
+             }else{
+                 List<TaskModel> tasks = sqliteHelper.get_tasks();
+                  taskAdapter.setTasks(tasks);
+             }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         sqliteHelper = new SqliteHelper(this);
         List<TaskModel> tasks = sqliteHelper.get_tasks();
         taskAdapter.add_all(tasks);

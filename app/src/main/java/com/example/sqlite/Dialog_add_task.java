@@ -29,7 +29,7 @@ public class Dialog_add_task extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View v = LayoutInflater.from(getContext()).inflate(R.layout.add_task_dg,null,false);
         TextInputLayout textInputLayout = v.findViewById(R.id.text_input_l);
-        TextInputEditText textInputEditText = v.findViewById(R.id.add_task_Et);
+        TextInputEditText textInputEditText = v.findViewById(R.id.search_et);
         MaterialButton materialButton = v.findViewById(R.id.btn_add_task);
 
          materialButton.setOnClickListener(new View.OnClickListener() {

@@ -87,5 +87,24 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void delete_all_task() {
 
     }
+    public List<TaskModel> search(String q){
+      SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+      Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE title LIKE '%"+q+"%'",null);
+        List<TaskModel> list_task = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+
+                TaskModel taskModel = new TaskModel();
+                taskModel.setId(cursor.getLong(0));
+                taskModel.setTitle(cursor.getString(1));
+                taskModel.setCompleted(cursor.getInt(2) == 1);
+                list_task.add(taskModel);
+            } while (cursor.moveToNext());
+
+
+        }
+        sqLiteDatabase.close();
+        return list_task;
+    }
 
 }

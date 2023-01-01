@@ -44,6 +44,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             }
         }
     }
+    public void setTasks(List<TaskModel> tasks){
+        this.taskModelList =tasks;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
