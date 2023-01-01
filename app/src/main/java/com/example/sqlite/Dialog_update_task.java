@@ -23,6 +23,9 @@ public class Dialog_update_task extends DialogFragment {
         super.onAttach(context);
         editTaskCallback = (EditTaskCallback) context;
         taskModel = getArguments().getParcelable("task");
+        if (taskModel==null){
+            dismiss();
+        }
     }
 
     @NonNull
@@ -33,15 +36,14 @@ public class Dialog_update_task extends DialogFragment {
         TextInputLayout textInputLayout = v.findViewById(R.id.text_input_l);
         TextInputEditText textInputEditText = v.findViewById(R.id.update_task_Et);
         MaterialButton materialButton = v.findViewById(R.id.btn_update_task);
-
+        textInputEditText.setText(taskModel.getTitle());
          materialButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  if (textInputEditText.length()>0){
                  TaskModel taskModel = new TaskModel();
                  taskModel.setTitle(textInputEditText.getText().toString());
-                 taskModel.setCompleted(false);
-                 editTaskCallback.updateTask(taskModel);
+                  editTaskCallback.updateTask(taskModel);
                  dismiss();
                  }else {
                      textInputLayout.setError("The title should not be empty");

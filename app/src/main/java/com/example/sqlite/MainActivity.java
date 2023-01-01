@@ -9,7 +9,7 @@ import android.view.View;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Dialog_add_task.addNewTaskCallback,TaskAdapter.onItemSelect {
+public class MainActivity extends AppCompatActivity implements Dialog_add_task.addNewTaskCallback, TaskAdapter.onItemSelect, Dialog_update_task.EditTaskCallback {
     SqliteHelper sqliteHelper;
     TaskAdapter taskAdapter = new TaskAdapter(this);
 
@@ -45,10 +45,29 @@ public class MainActivity extends AppCompatActivity implements Dialog_add_task.a
 
     @Override
     public void onDeleteButtonClicked(TaskModel taskModel) {
-     int result = sqliteHelper.delete_task(taskModel);
+        int result = sqliteHelper.delete_task(taskModel);
 
-     if (result>0){
-         taskAdapter.deleteItem(taskModel);
-     }
+        if (result > 0) {
+            taskAdapter.deleteItem(taskModel);
+        }
+    }
+
+    @Override
+    public void onUpdateButtonClicked(TaskModel taskModel) {
+    Dialog_update_task dialog_update_task = new Dialog_update_task();
+    Bundle bundle = new Bundle();
+    bundle.putParcelable("task", taskModel);
+    dialog_update_task.setArguments(bundle);
+    dialog_update_task.show(getSupportFragmentManager(),null);
+
+    }
+
+    @Override
+    public void updateTask(TaskModel taskModel) {
+
+        int result = sqliteHelper.update_task(taskModel);
+        if (result > 0) {
+         taskAdapter.updateItem(taskModel);
+        }
     }
 }
